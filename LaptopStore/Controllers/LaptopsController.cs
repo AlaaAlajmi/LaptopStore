@@ -46,10 +46,7 @@ namespace LaptopStore.Controllers
 
 		}
 
-		public async Task<IActionResult> Create()
-		{
-			return View();
-		}
+		
 		[HttpPost]
 		public async Task<IActionResult> Create(NewLaptopMV laptop)
 		{

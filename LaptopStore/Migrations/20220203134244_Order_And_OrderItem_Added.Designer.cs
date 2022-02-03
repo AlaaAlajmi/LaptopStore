@@ -4,14 +4,16 @@ using LaptopStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LaptopStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220203134244_Order_And_OrderItem_Added")]
+    partial class Order_And_OrderItem_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,29 +96,6 @@ namespace LaptopStore.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("LaptopStore.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LaptopId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LaptopId");
-
-                    b.ToTable("ShoppingCartItems");
-                });
-
             modelBuilder.Entity("LaptopStore.Models.OrderItem", b =>
                 {
                     b.HasOne("LaptopStore.Models.Laptop", "Laptop")
@@ -138,15 +117,6 @@ namespace LaptopStore.Migrations
                     b.Navigation("Laptop");
 
                     b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("LaptopStore.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("LaptopStore.Models.Laptop", "Laptop")
-                        .WithMany()
-                        .HasForeignKey("LaptopId");
-
-                    b.Navigation("Laptop");
                 });
 
             modelBuilder.Entity("LaptopStore.Models.Order", b =>

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LaptopStore.Data;
+using LaptopStore.Data.Cart;
 using LaptopStore.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +31,14 @@ namespace LaptopStore
 			services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 			services.AddControllersWithViews();
 			services.AddScoped<ILaptopsService, LaptopsService>();
+
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+			services.AddScoped<IOrdersService, OrdersService>();
+
+			services.AddSession();
+
+			services.AddControllersWithViews();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +58,7 @@ namespace LaptopStore
 			app.UseStaticFiles();
 
 			app.UseRouting();
+			app.UseSession();
 
 			app.UseAuthorization();
 
