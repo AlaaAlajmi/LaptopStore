@@ -46,7 +46,11 @@ namespace LaptopStore.Controllers
 
 		}
 
-		
+		public async Task<IActionResult> Create()
+		{
+			return View();
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> Create(NewLaptopMV laptop)
 		{
@@ -61,7 +65,7 @@ namespace LaptopStore.Controllers
     public async Task<IActionResult> Edit(int id)
     {
         var LaptopDetial = await _service.GetLaptopByIdAsync(id);
-     
+			if (LaptopDetial == null) return View();
 
         var response = new NewLaptopMV()
 		{
