@@ -66,7 +66,7 @@ namespace LaptopStore
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Laptops}/{action=Index}/{id?}");
 			});
 
 			AppDbInitializer.Seed(app);
